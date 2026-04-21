@@ -1,7 +1,6 @@
 import cv2
 import numpy as np
 
-# Function to apply interlaced effect
 def interlace_frame(frame, frame_number):
     height, width, _ = frame.shape
     output = frame.copy()
@@ -14,19 +13,18 @@ def interlace_frame(frame, frame_number):
 
     return output
 
-# Load the video
-video_path = '/path/to/video.mp4'
+video_path = input("Enter the path of the video: ")
 cap = cv2.VideoCapture(video_path)
 
-# Get video properties
+# Video properties
 fps = int(cap.get(cv2.CAP_PROP_FPS))
 frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
-# Output video
+
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-out = cv2.VideoWriter('interlaced_video.mp4', fourcc, fps, (width, height))
+out = cv2.VideoWriter('output.mp4', fourcc, fps, (width, height))
 
 frame_number = 0
 
@@ -35,7 +33,6 @@ while cap.isOpened():
     if not ret:
         break
     
-    # Apply the interlaced effect
     interlaced_frame = interlace_frame(frame, frame_number)
     out.write(interlaced_frame)
     
